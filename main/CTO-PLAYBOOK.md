@@ -212,7 +212,6 @@
 |---|---|
 | gpt-5.4 | 旗舰推荐 |
 | gpt-5.3-codex | 编码专用 |
-| gpt-5.3-codex-spark | 即时响应（Pro 预览）|
 
 **推理强度：** low / medium / high / xhigh
 **线程模式：** Local / Worktree / Cloud
@@ -494,7 +493,6 @@ Codex App 侧：
 | 多任务并行 | Codex App | gpt-5.4 | high | Worktree ×N |
 | 后端逻辑密集 | Codex App | gpt-5.4 | high | Local |
 | 日常编码 | Codex App | gpt-5.4 | medium | Local |
-| 简单快速修改 | Codex App | gpt-5.3-codex-spark | low | Local |
 | 需 AI 生成图像 | Antigravity | 任意 | — | Planning |
 | 需最强推理 | Antigravity | Claude Opus 4.6 Thinking | — | Planning |
 | 定时自动化 | Codex App | — | — | Automation |
