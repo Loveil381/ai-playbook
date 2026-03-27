@@ -8,7 +8,9 @@
 
 | 文件 | 用途 |
 |---|---|
-| `CTO-PLAYBOOK.md` | 完整操作手册，Claude 通过 URL 抓取阅读 |
+| `CTO-PLAYBOOK.md` | 操作手册入口（快速回忆区 + 目录 + 阅读指引） |
+| `playbook/part1-core.md` | 手册 Part 1：核心流程 §1-§13 |
+| `playbook/part2-extend.md` | 手册 Part 2：决策框架与高级流程 §14-§22 |
 | `prompts/01-first-session.md` | 新项目第一次对话时粘贴 |
 | `prompts/02-resume-session.md` | 同项目开新对话时粘贴（对话断了/换会话）|
 | `prompts/03-context-compressed.md` | 对话中途 Claude 退化时粘贴 |
@@ -19,6 +21,12 @@
 | `prompts/08-stitch-design.md` | Stitch UI 设计启动模板 |
 | `prompts/09-skill-ecosystem.md` | Agent Skill 生态管理模板 |
 
+## 为什么拆分？
+
+CTO-PLAYBOOK 原始文件约 44KB / 18,700 tokens。大多数 AI 平台（包括 Genspark）的 URL 抓取有 ~10,000 token 上限，单次读取会被截断，导致 §14 之后的决策框架、快捷命令、记忆持久化、高级流程、Skill 生态等章节丢失。
+
+拆分后每个文件控制在 10,000 tokens 以内，任何平台均能单次完整读取。入口文件包含快速回忆区和模型速查，即使 CTO 只读了入口也不会选错模型。
+
 ## 使用方式
 
 1. `loveil381` 已预填为 GitHub 用户名
@@ -27,4 +35,6 @@
 
 ## 手册 Raw URL
 
-https://raw.githubusercontent.com/loveil381/ai-playbook/main/CTO-PLAYBOOK.md
+- 入口：https://raw.githubusercontent.com/loveil381/ai-playbook/main/CTO-PLAYBOOK.md
+- Part 1：https://raw.githubusercontent.com/loveil381/ai-playbook/main/playbook/part1-core.md
+- Part 2：https://raw.githubusercontent.com/loveil381/ai-playbook/main/playbook/part2-extend.md

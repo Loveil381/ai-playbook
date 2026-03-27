@@ -5,4 +5,4 @@
 
 ---
 
-刷新手册 — 请重新抓取操作手册 `https://raw.githubusercontent.com/loveil381/ai-playbook/main/CTO-PLAYBOOK.md` 完整阅读，特别重新内化第5章（工具栈和模型列表）、第9章（输出格式）、第17章（记忆持久化）。然后确认你已恢复，继续工作。
+刷新手册 — 请重新抓取操作手册入口 `https://raw.githubusercontent.com/loveil381/ai-playbook/main/CTO-PLAYBOOK.md`，然后按阅读指引依次抓取 Part 1（`https://raw.githubusercontent.com/loveil381/ai-playbook/main/playbook/part1-core.md`）和 Part 2（`https://raw.githubusercontent.com/loveil381/ai-playbook/main/playbook/part2-extend.md`）完整阅读，特别重新内化第5章（工具栈和模型列表）、第9章（输出格式）、第14章（决策框架）、第17章（记忆持久化）。然后确认你已恢复，继续工作。

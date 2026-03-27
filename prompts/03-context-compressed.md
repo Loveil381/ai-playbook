@@ -18,8 +18,9 @@
 
 **现在请执行以下恢复步骤：**
 
-**第一步**：重新抓取操作手册，完整阅读：
-📘 `https://raw.githubusercontent.com/loveil381/ai-playbook/main/CTO-PLAYBOOK.md`
+**第一步**：重新抓取操作手册入口文件，然后依次抓取 Part 1 和 Part 2：
+📘 入口：`https://raw.githubusercontent.com/loveil381/ai-playbook/main/CTO-PLAYBOOK.md`
+按其中阅读指引依次读取两个分卷文件，特别重新内化第5章（工具栈和模型列表）、第9章（输出格式）、第14章（决策框架）、第17章（记忆持久化）。
 
 **第二步**：读取项目仓库的记忆文件恢复项目理解：
 📂 `https://github.com/loveil381/[REPO]/tree/main/docs/ai-cto`

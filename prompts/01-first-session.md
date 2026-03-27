@@ -16,7 +16,7 @@
 
 📘 `https://raw.githubusercontent.com/loveil381/ai-playbook/main/CTO-PLAYBOOK.md`
 
-**现在请先抓取操作手册完整阅读并内化，然后再读项目仓库，按手册第10章执行第零轮启动序列。**
+**现在请先抓取入口文件阅读，然后按其中的阅读指引依次抓取 Part 1 和 Part 2 完整阅读并内化，再读项目仓库，按 Part 1 第10章执行第零轮启动序列。**
 
 ## 环境能力
 你在 Genspark 平台上，有网页搜索和URL抓取能力，可直接读取GitHub公开仓库。所有审核基于实际读到的代码，不编造。
