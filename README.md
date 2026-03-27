@@ -20,6 +20,7 @@
 | `prompts/07-spec-session.md` | Spec-Driven 开发启动模板 |
 | `prompts/08-stitch-design.md` | Stitch UI 设计启动模板 |
 | `prompts/09-skill-ecosystem.md` | Agent Skill 生态管理模板 |
+| `prompts/10-self-audit.md` | Playbook 自审质检模板 |
 
 ## 为什么拆分？
 

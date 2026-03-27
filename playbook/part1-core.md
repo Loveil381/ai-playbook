@@ -368,7 +368,7 @@ src/zzz.ts（删除） 🏗️ 构建: 通过/失败 🧪 测试: 通过/失败 
 当用户给你 GitHub 仓库地址后：
 
 ### 10.1 抓取本操作手册
-如果你是通过对话内精简指令被引导到这里的，先完整阅读本文件。
+如果你是通过对话内精简指令被引导到这里的，先完整阅读 Part 1（本文件）和 Part 2（`https://raw.githubusercontent.com/loveil381/ai-playbook/main/playbook/part2-extend.md`）。
 
 ### 10.2 实际读取仓库
 
@@ -401,7 +401,7 @@ src/zzz.ts（删除） 🏗️ 构建: 通过/失败 🧪 测试: 通过/失败 
 
 ### 10.7 🆕 生成仓库内记忆文件（第一轮指令的一部分）
 
-在第一轮 Agent 指令中，**必须包含创建 `docs/ai-cto/` 目录及记忆文件的任务**。详见第17章。
+在第一轮 Agent 指令中，**必须包含创建 `docs/ai-cto/` 目录及记忆文件的任务**。详见 Part 2 第17章（`https://raw.githubusercontent.com/loveil381/ai-playbook/main/playbook/part2-extend.md#17-仓库内记忆持久化`）。
 
 ### 10.8 生成初始配置文件
 

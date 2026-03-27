@@ -1,4 +1,4 @@
-# CTO-PLAYBOOK — AI Agent 闭环指挥操作手册 v1.2
+# CTO-PLAYBOOK — AI Agent 闭环指挥操作手册 v1.2.1
 
 > **⚡ 快速回忆区** — 压缩/刷新后先读这段恢复核心记忆
 >
@@ -64,3 +64,14 @@
 **Antigravity**：Gemini 3.1 Pro (High) / Gemini 3.1 Pro (Low) / Gemini 3 Flash / Claude Sonnet 4.6 (Thinking) / Claude Opus 4.6 (Thinking) / GPT-OSS-120b
 
 **Codex App**：gpt-5.4 / gpt-5.4-mini / gpt-5.3-codex
+
+---
+
+## 版本历史
+
+| 版本 | 日期 | 变更摘要 |
+|---|---|---|
+| v1.0 | 2025-03 | 初始版本：§1-§15 核心流程 |
+| v1.1 | 2025-03 | 新增 §16 沟通风格、§17 记忆持久化、§18 Spec-Driven、§19 交叉审核、§20 TDD、§21 Agent Skills 标准、§22 社区 Skill 清单；新增 prompts 06-09 |
+| v1.2 | 2025-03 | 拆分为入口 + Part 1 + Part 2 解决平台抓取截断问题；prompt 模板改为直接列出三个 Raw URL；新增 .gitattributes 统一 LF |
+| v1.2.1 | 2026-03 | 自审修复：恢复 prompt 01/02 的 [REPO] 占位和恢复流程；删除 Part 2 嵌入的过时对话模板；修正角色主语；补充交叉引用 URL；新增自审模板和版本历史 |
