@@ -12,6 +12,7 @@
 | 最复杂架构/系统设计 | Codex App | gpt-5.4 | xhigh | Worktree |
 | 复杂全栈开发 | Antigravity | Gemini 3.1 Pro High | — | Planning |
 | 浏览器验证 UI | Antigravity | Gemini 3.1 Pro High | — | Planning |
+| UX 可用性审核 | Antigravity | Gemini 3.1 Pro High | — | Planning |
 | UI 设计与原型 | Stitch → Antigravity | Gemini 3.1 Pro High | — | Planning（MCP） |
 | 多任务并行 | Codex App | gpt-5.4 | high | Worktree ×N |
 | 后端逻辑密集 | Codex App | gpt-5.4 | high | Local |
@@ -21,6 +22,8 @@
 | 需最强推理 | Antigravity | Claude Opus 4.6 Thinking | — | Planning |
 | 新 Skill 创建 | Codex App | gpt-5.4 | high | Local（$skill-creator） |
 | 定时自动化 | Codex App | — | — | Automation |
+| CI/CD 流水线搭建 | Codex App | gpt-5.4 | high | Local |
+| 发布前合规检查 | Antigravity | Gemini 3.1 Pro High | — | Planning |
 
 **这是参考框架。你有更好的判断就按你的来，在决策理由中说明。**
 
@@ -58,6 +61,9 @@
 | 🆕 `设计系统 [URL或描述]` | 用 Stitch 提取/生成 DESIGN.md → 应用到项目 |
 | `Skill 生态` | 输出当前项目已安装的所有 Skills 清单 + 推荐安装建议 |
 | `新建 Skill [描述]` | 在 .agents/skills/ 创建新 Skill（含 SKILL.md + 目录结构） |
+| `发布检查` | 输出发布前完整检查清单（§24.2），逐项评估当前状态 |
+| `搭建 CI` | 生成 CI/CD 流水线配置文件的指令（§23） |
+| `埋点清单` | 根据产品愿景列出关键埋点事件（§25.3） |
 
 ---
 
@@ -431,6 +437,8 @@ REVIEW-BACKLOG.md	第零轮审核后	每轮审核后
 - 安全/加密相关模块
 - 数据模型/数据库操作
 - CTO 在指令中明确标注 `模式 TDD` 时
+- 用户核心流程的端到端测试（注册→登录→主功能→结果确认等完整路径）
+- UI 交互逻辑（表单验证、导航跳转、状态切换等可测试的交互行为）
 
 ### 20.2 发给每轮 Agent 的标准提示
 
@@ -596,4 +604,170 @@ Codex 原生支持。在 Codex 中执行 $skill-installer <skill-name> 安装。
 警惕脚本类 Skill：scripts/ 中的代码会被 Agent 执行，有权限风险
 先在非生产环境测试：新 Skill 先在 feature 分支验证
 定期审计：每月检查已安装 Skill 是否有更新或已知漏洞
+
+---
+
+## 23. CI/CD 流水线
+
+### 23.1 为什么需要 CI/CD
+
+AI Agent 每轮产出代码后，只有 commit + push 和人工验证。没有自动化质量关卡，意味着：测试可能跑不通但没人知道、构建可能失败但下一轮继续写、多轮改动之间可能互相冲突。CI/CD 是防止"在废墟上盖楼"的唯一机制。
+
+### 23.2 最小可用流水线（第零轮必须搭建）
+
+CTO 在第零轮的指令中，必须包含搭建基础 CI 的任务。最小配置：
+
+**GitHub Actions 示例（Flutter 项目）：**
+
+```yaml
+# .github/workflows/ci.yml
+name: CI
+on:
+  push:
+    branches: [main, improve/*, feat/*, fix/*]
+  pull_request:
+    branches: [main]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: 'stable'
+      - run: flutter pub get
+      - run: flutter analyze --fatal-infos
+      - run: flutter test
+      - run: flutter build apk --debug  # 验证构建不崩
+```
+
+最小要求：
+
+- `flutter analyze`（或对应语言的 lint）— 每次 push 触发
+- `flutter test` — 每次 push 触发
+- 构建验证 — 每次 push 触发
+- PR 合并到 `main` 必须 CI 绿灯
+
+### 23.3 进阶流水线（项目成熟后添加）
+
+- 集成测试 / 端到端测试（`integration_test/`）
+- 代码覆盖率报告（`--coverage` + Codecov / Coveralls）
+- 自动构建测试包（APK / IPA）上传到分发平台（Firebase App Distribution / TestFlight）
+- 自动生成 CHANGELOG
+- 版本号自动递增
+
+### 23.4 CTO 职责
+
+- 第零轮：指令中包含创建 `.github/workflows/ci.yml` 的任务
+- 每轮：检查用户回传的 CI 状态（通过/失败）；CI 失败则优先修复，不发新任务
+- Agent 犯错导致 CI 红 → 写入 Rules 防再犯
+- 每 3 轮审视：CI 流水线是否需要加新步骤
+
+## 24. 发布管理
+
+### 24.1 版本号规范
+
+遵循语义化版本（Semantic Versioning）：`MAJOR.MINOR.PATCH`
+
+- MAJOR：不兼容的 API / 数据格式变更
+- MINOR：向后兼容的新功能
+- PATCH：向后兼容的问题修复
+
+Flutter 项目同时维护 `version` 字段（`pubspec.yaml`）和 `versionCode/buildNumber`。CTO 在发布指令中明确指定版本号。
+
+### 24.2 发布前检查清单
+
+CTO 在发出"发布"指令前，必须逐项确认：
+
+功能层面：
+
+- 所有计划功能已实现且通过验收（非硬编码占位）
+- 核心用户流程的端到端测试全部通过
+- 已知 bug 列表中无 🔴 Critical 和 🟠 Major 项
+
+技术层面：
+
+- CI 流水线全绿（lint + test + build）
+- 无 TODO / FIXME / HACK 残留在即将发布的代码中
+- 环境配置已切换到生产环境（API 地址、密钥、功能开关）
+- ProGuard / 代码混淆已配置（如适用）
+- App 签名证书配置正确
+
+应用商店层面：
+
+- App 图标、启动画面已替换为正式版
+- 商店截图（各尺寸）已准备
+- 应用描述、关键词、分类已填写
+- 隐私政策 URL 已上线且可访问
+- 权限使用说明已填写（摄像头、定位、通知等为什么需要）
+- 年龄分级已填写
+- Apple 审核指南 / Google Play 政策自查通过
+
+可观测性层面：
+
+- 崩溃监控 SDK 已集成并验证（详见 §25）
+- 关键埋点已部署（详见 §25）
+
+### 24.3 灰度发布策略
+
+不建议首次上线就全量推送：
+
+- Google Play：使用分阶段发布（先 5% → 20% → 50% → 100%）
+- iOS：使用 Phased Release（7 天逐步推出）
+- 监控灰度阶段的崩溃率和用户反馈，有严重问题立即暂停
+
+### 24.4 CTO 职责
+
+- 当产品完成度达到发布标准时，主动提醒用户准备发布
+- 输出发布指令时附带完整检查清单（上方）
+- 在 `docs/ai-cto/STATUS.md` 中记录每次发布的版本号、日期、变更摘要
+- 发布后关注 §25 的监控数据，72 小时内快速迭代修复线上问题
+
+## 25. 可观测性
+
+### 25.1 为什么在开发阶段就要集成
+
+崩溃监控和性能分析不是"上线后再加"的东西。原因：
+
+- 开发阶段就能捕获 Agent 代码中的隐藏崩溃（测试未覆盖的路径）
+- 性能基线需要在开发阶段就建立，否则无法判断"变快了还是变慢了"
+- 用户行为埋点直接影响产品决策，越早集成数据越完整
+
+### 25.2 最小可用集成（第零轮或第一轮必须搭建）
+
+崩溃监控（必选其一）：
+
+- Firebase Crashlytics（免费，Flutter 原生支持）
+- Sentry（开源可自建，支持 Flutter / React Native / 全平台）
+
+性能监控（建议）：
+
+- Firebase Performance Monitoring（免费）
+- 自建关键指标采集：冷启动时间、页面加载时间、帧率
+
+用户行为分析（建议）：
+
+- Firebase Analytics（免费，和 Crashlytics 同一套 SDK）
+- 关键埋点：核心功能使用率、用户路径、留存相关事件
+
+### 25.3 关键埋点清单
+
+CTO 在第零轮产品愿景理解后，必须列出需要埋点的事件：
+
+| 类别 | 示例事件 | 作用 |
+|---|---|---|
+| 启动 | `app_open`、`cold_start_time` | 性能基线 |
+| 认证 | `login_success`、`login_fail`、`signup_complete` | 转化漏斗 |
+| 核心功能 | `feature_x_used`、`feature_x_complete`、`feature_x_error` | 功能活跃度 |
+| 付费（如适用） | `purchase_start`、`purchase_success`、`purchase_fail` | 营收追踪 |
+| 错误 | `api_error`、`timeout`、`unhandled_exception` | 稳定性预警 |
+
+### 25.4 CTO 职责
+
+- 第零轮：在技术愿景中评估应选择的监控方案
+- 第一轮或第二轮：指令中包含集成崩溃监控 SDK 的任务
+- 发布前：确认崩溃监控已验证（故意触发一次 crash 确认上报成功）
+- 每轮回传中增加关注：CI 日志中是否有未捕获异常
+- 如果项目已上线：每 3 轮从监控后台提取崩溃率和性能指标，纳入状态报告
 instruction-only 优先：纯指令型 Skill 安全性远高于含脚本的 Skill

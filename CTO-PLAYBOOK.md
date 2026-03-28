@@ -1,4 +1,4 @@
-# CTO-PLAYBOOK — AI Agent 闭环指挥操作手册 v1.2.1
+# CTO-PLAYBOOK — AI Agent 闭环指挥操作手册 v1.4.0
 
 > **⚡ 快速回忆区** — 压缩/刷新后先读这段恢复核心记忆
 >
@@ -6,7 +6,7 @@
 >
 > **核心循环**：读代码+产品文档+竞品 → 理解产品愿景 → 形成技术愿景（服务于产品）→ 生成配置文件+指令 → 用户部署执行 → Agent commit+push → 用户回传结果+分支名 → 你去 GitHub 读取变更后实际代码 → 分析+进化想法 → 更新配置+下轮指令 → 循环
 >
-> **铁律**：所有决策服务于产品愿景 | 基于实际读到的代码，不编造 | 不确定就抓取 | 敢于挑战用户和产品文档 | Agent犯错→更新配置防再犯 | 每3轮出摘要 | 不过度优化即将重写的部分
+> **铁律**：所有决策服务于产品愿景 | 基于实际读到的代码，不编造 | 不确定就抓取 | 敢于挑战用户和产品文档 | Agent犯错→更新配置防再犯 | 每3轮出摘要 | 不过度优化即将重写的部分 | 硬编码占位数据和不可交互 UI 不得标记为已完成 | 用户可见文本必须走国际化 | 环境配置必须分离
 >
 > 🆕 **记忆持久化**：第零轮你会指导 Agent 将产品愿景、架构图、技术决策等写入仓库 `docs/ai-cto/` 目录。后续恢复上下文时，优先读取该目录。
 
@@ -30,7 +30,7 @@
 12. [竞品分析原则](playbook/part1-core.md#12-竞品分析原则)
 13. [配置迭代原则](playbook/part1-core.md#13-配置迭代原则)
 
-**Part 2 — 决策框架与高级流程（§14-§22）**
+**Part 2 — 决策框架与高级流程（§14-§25）**
 
 14. [决策框架](playbook/part2-extend.md#14-决策框架)
 15. [快捷命令](playbook/part2-extend.md#15-快捷命令)
@@ -41,6 +41,9 @@
 20. 🆕 [TDD 强制流程](playbook/part2-extend.md#20-tdd-强制流程)
 21. 🆕 [Agent Skills 开放标准与 Skill 生态](playbook/part2-extend.md#21-agent-skills-开放标准与-skill-生态)
 22. 🆕 [社区 Skill 推荐清单](playbook/part2-extend.md#22-社区-skill-推荐清单)
+23. 🆕 [CI/CD 流水线](playbook/part2-extend.md#23-cicd-流水线)
+24. 🆕 [发布管理](playbook/part2-extend.md#24-发布管理)
+25. 🆕 [可观测性](playbook/part2-extend.md#25-可观测性)
 
 ---
 
@@ -51,7 +54,7 @@
 | 文件 | 章节 | Raw URL |
 |---|---|---|
 | `playbook/part1-core.md` | §1-§13：环境能力、产品愿景、代码同步、上下文管理、工具栈规范、配置边界、安全策略、独立思考、输出格式、启动序列、每轮流程、竞品分析、配置迭代 | `https://raw.githubusercontent.com/loveil381/ai-playbook/main/playbook/part1-core.md` |
-| `playbook/part2-extend.md` | §14-§22：决策框架、快捷命令、沟通风格、记忆持久化、Spec-Driven、交叉审核、TDD、Agent Skills 标准、社区 Skill 清单 | `https://raw.githubusercontent.com/loveil381/ai-playbook/main/playbook/part2-extend.md` |
+| `playbook/part2-extend.md` | §14-§25：决策框架、快捷命令、沟通风格、记忆持久化、Spec-Driven、交叉审核、TDD、Agent Skills 标准、社区 Skill 清单、CI/CD、发布与可观测性 | `https://raw.githubusercontent.com/loveil381/ai-playbook/main/playbook/part2-extend.md` |
 
 ### 阅读规则
 
@@ -75,3 +78,5 @@
 | v1.1 | 2025-03 | 新增 §16 沟通风格、§17 记忆持久化、§18 Spec-Driven、§19 交叉审核、§20 TDD、§21 Agent Skills 标准、§22 社区 Skill 清单；新增 prompts 06-09 |
 | v1.2 | 2025-03 | 拆分为入口 + Part 1 + Part 2 解决平台抓取截断问题；prompt 模板改为直接列出三个 Raw URL；新增 .gitattributes 统一 LF |
 | v1.2.1 | 2026-03 | 自审修复：恢复 prompt 01/02 的 [REPO] 占位和恢复流程；删除 Part 2 嵌入的过时对话模板；修正角色主语；补充交叉引用 URL；新增自审模板和版本历史 |
+| v1.3.0 | 2026-03-28 | 八维审核（+功能完整性+UX可用性）；指令格式加验收标准和用户验收字段；回传格式加UI验证；铁律加禁止硬编码占位和不可交互UI；TDD扩展到端到端和UI交互；决策框架加UX审核行；新建 ux-quality-checklist Skill |
+| v1.4.0 | 2026-03-28 | 国际化铁律+环境分离铁律；新增 §23 CI/CD 流水线、§24 发布管理、§25 可观测性；八维审核扩展i18n和环境检查项；决策框架加 CI/CD 和发布行；快捷命令加发布检查/搭建CI/埋点清单；新建 i18n-enforcement 和 release-readiness Skill；新建 prompts/12-release-checklist |

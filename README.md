@@ -10,7 +10,7 @@
 |---|---|
 | `CTO-PLAYBOOK.md` | 操作手册入口（快速回忆区 + 目录 + 阅读指引） |
 | `playbook/part1-core.md` | 手册 Part 1：核心流程 §1-§13 |
-| `playbook/part2-extend.md` | 手册 Part 2：决策框架与高级流程 §14-§22 |
+| `playbook/part2-extend.md` | 手册 Part 2：决策框架与高级流程 §14-§25 |
 | `prompts/01-first-session.md` | 新项目第一次对话时粘贴 |
 | `prompts/02-resume-session.md` | 同项目开新对话时粘贴（对话断了/换会话）|
 | `prompts/03-context-compressed.md` | 对话中途 Claude 退化时粘贴 |
@@ -21,6 +21,10 @@
 | `prompts/08-stitch-design.md` | Stitch UI 设计启动模板 |
 | `prompts/09-skill-ecosystem.md` | Agent Skill 生态管理模板 |
 | `prompts/10-self-audit.md` | Playbook 自审质检模板 |
+| `prompts/12-release-checklist.md` | 发布前全面检查模板 |
+| `.agents/skills/ux-quality-checklist/SKILL.md` | UI 提交前 UX 质量检查清单 |
+| `.agents/skills/i18n-enforcement/SKILL.md` | 国际化合规检查 |
+| `.agents/skills/release-readiness/SKILL.md` | 发布就绪检查 |
 
 ## 为什么拆分？
 
