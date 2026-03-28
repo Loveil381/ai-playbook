@@ -205,7 +205,7 @@ npx skills add google-labs-code/stitch-skills --skill <skill-name> --global
 |---|---|
 | gpt-5.4 | 旗舰推荐 |
 | gpt-5.4-mini | 轻量快速，省配额 |
-| gpt-5.3-codex | 编码专用 |
+| gpt-5.3-codex | 编码专精（gpt-5.4 的编码底座） |
 
 **推理强度：** low / medium / high / xhigh
 **线程模式：** Local / Worktree / Cloud
@@ -264,6 +264,7 @@ npx skills add google-labs-code/stitch-skills --skill <skill-name> --global
 - **UI 元素不可交互 = 未完成**：不可点击的按钮、不可输入的表单、不跳转的链接，均视为未完成，不得合入主分支
 - **用户可见文本必须走国际化**：所有面向用户的文字（按钮标签、提示信息、页面标题等）必须使用项目的国际化机制（如 Flutter 的 `intl` / `.arb` 文件、React 的 `i18next`），不得直接在代码中硬编码字符串。唯一例外是日志和调试信息
 - **环境配置必须分离**：API 地址、第三方 Key、功能开关等环境相关配置必须通过环境变量或配置文件注入（如 `--dart-define`、`.env`、`flavor`），不得在代码中硬编码生产/测试环境的值。代码中不得出现任何明文密钥或 Token
+- **禁止删除重建替代精确修复**：Agent 不得因为局部问题（编码损坏、格式错误、单个 bug）而删除整个文件重写。正确做法：先 `git checkout` 恢复原始版本，再在原始版本上做最小改动。如果确实需要重写整个文件，必须在提交信息中说明重写理由，并逐行对比原文件确保没有丢失已有逻辑。CTO 发现 Agent 无理由删除重建时，必须要求返工并将此规则写入项目 Rules
 
 ---
 

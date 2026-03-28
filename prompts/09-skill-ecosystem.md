@@ -3,6 +3,7 @@
 > **使用场景**：项目初始化或扩展 Skill 集合时，统一盘点和管理
 >
 > **使用方式**：CTO 命令 `Skill 生态`
+> 💡 如需刷新操作手册，见 `prompts/04-refresh-handbook.md`
 
 ---
 

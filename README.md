@@ -21,6 +21,7 @@
 | `prompts/08-stitch-design.md` | Stitch UI 设计启动模板 |
 | `prompts/09-skill-ecosystem.md` | Agent Skill 生态管理模板 |
 | `prompts/10-self-audit.md` | Playbook 自审质检模板 |
+| `prompts/11-model-update.md` | 模型列表更新模板 |
 | `prompts/12-release-checklist.md` | 发布前全面检查模板 |
 | `.agents/skills/ux-quality-checklist/SKILL.md` | UI 提交前 UX 质量检查清单 |
 | `.agents/skills/i18n-enforcement/SKILL.md` | 国际化合规检查 |

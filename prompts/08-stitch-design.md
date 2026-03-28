@@ -5,6 +5,7 @@
 > **前置条件**：
 > - Antigravity 已安装 Stitch MCP Server 并配置 API Key
 > - 将 [功能描述] 替换为具体需求
+> 💡 如需刷新操作手册，见 `prompts/04-refresh-handbook.md`
 
 ---
 

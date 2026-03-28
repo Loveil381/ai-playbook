@@ -586,6 +586,10 @@ TDD 驱动开发工作流
 
 适用场景： 项目涉及用户数据、支付、认证等安全敏感功能时，将相关 SKILL.md 复制到 .agents/skills/security-audit/。
 
+**社区审核版：** `https://github.com/trailofbits/skills-curated`
+
+Trail of Bits 维护的经过社区审核的安全 Skill 市场，每个 Skill 和来源市场都经过质量和安全审查。适合对安全 Skill 来源有严格要求的项目，优先从此仓库安装。
+
 22.4 OpenAI 官方 Skills
 仓库：https://github.com/openai/skills
 
