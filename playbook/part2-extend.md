@@ -12,6 +12,7 @@
 | 最复杂架构/系统设计 | Codex App | gpt-5.4 | xhigh | Worktree |
 | 复杂全栈开发 | Antigravity | Gemini 3.1 Pro High | — | Planning |
 | 浏览器验证 UI | Antigravity | Gemini 3.1 Pro High | — | Planning |
+| UX 可用性审核 | Antigravity | Gemini 3.1 Pro High | — | Planning |
 | UI 设计与原型 | Stitch → Antigravity | Gemini 3.1 Pro High | — | Planning（MCP） |
 | 多任务并行 | Codex App | gpt-5.4 | high | Worktree ×N |
 | 后端逻辑密集 | Codex App | gpt-5.4 | high | Local |
@@ -431,6 +432,8 @@ REVIEW-BACKLOG.md	第零轮审核后	每轮审核后
 - 安全/加密相关模块
 - 数据模型/数据库操作
 - CTO 在指令中明确标注 `模式 TDD` 时
+- 用户核心流程的端到端测试（注册→登录→主功能→结果确认等完整路径）
+- UI 交互逻辑（表单验证、导航跳转、状态切换等可测试的交互行为）
 
 ### 20.2 发给每轮 Agent 的标准提示
 
