@@ -67,8 +67,9 @@
 
 ## 斜杠命令
 
+- `/cto-init [项目路径]` — **一键初始化**目标项目的完整 CTO 系统
 - `/cto-start` — 新项目第零轮启动
-- `/cto-resume` — 恢复会话继续工��
+- `/cto-resume` — 恢复会话继续工作
 - `/cto-refresh` — 刷新手册恢复行为规范
 - `/cto-review` — 交叉审核关键改动
 - `/cto-spec` — Spec-Driven 开发启动

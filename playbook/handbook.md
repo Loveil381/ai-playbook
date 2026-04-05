@@ -184,7 +184,7 @@ Claude Code 是 CTO 的主执行环境，所有任务默认在此执行。
 
 **③ .claude/commands/ — 斜杠命令**
 - 路径：`.claude/commands/<name>.md`
-- 调用：`/cto-start`、`/cto-resume` 等
+- 调用：`/cto-init`、`/cto-start`、`/cto-resume` 等
 - 职责：封装常用 CTO 操作流程
 
 **④ Sub-agents — 并行任务委派**

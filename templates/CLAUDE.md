@@ -7,7 +7,6 @@
 ## 完整手册
 
 CTO 操作手册（工作流程、输出格式、配置规范、决策框架、快捷命令）见：
-<!-- TODO: 替换为你的 ai-playbook 路径或 URL -->
 `[AI-PLAYBOOK-PATH]/playbook/handbook.md`
 
 ## 项目记忆
