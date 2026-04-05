@@ -1591,3 +1591,126 @@ AI Agent 没有审美一致性。没有统一的设计系统，Agent 每次写 U
 - 在 SPEC.md 中明确数据处理方式
 - 在发布前检查清单中确认隐私相关项通过
 - 如果项目涉及敏感数据（健康、金融、儿童），标记为必须交叉审核（§19）
+
+## 29. 新项目集成教程
+
+### 29.1 概述
+
+ai-playbook 是一个中央指挥仓库，不需要复制整个仓库到每个项目。目标项目只需要引用 ai-playbook 中的手册即可获得完整 CTO 能力。
+
+### 29.2 一键自动集成（推荐）
+
+在 **ai-playbook 仓库**中打开 Claude Code，运行：
+
+```
+/cto-init C:\projects\your-project
+```
+
+此命令自动完成以下所有步骤：
+
+1. **复制 CLAUDE.md** — 从 `templates/CLAUDE.md` 复制到目标项目根目录，自动替换 `[AI-PLAYBOOK-PATH]` 为实际的 ai-playbook 绝对路径
+2. **复制斜杠命令** — 将 `.claude/commands/` 下所有 `cto-*.md` 命令复制到目标项目（除 `cto-init.md`）
+3. **复制 Claude Code 配置** — `.claude/settings.json`
+4. **复制跨平台 Skills** — `.agents/skills/` 全部 Skill 目录
+5. **自动检测技术栈** — 扫描 `package.json`、`composer.json`、`pubspec.yaml`、`go.mod`、`Cargo.toml` 等，预填 CLAUDE.md 中的技术栈信息
+6. **输出安装报告** — 列出所有已复制文件和检测结果
+
+### 29.3 手动集成
+
+如果你不方便在 ai-playbook 中运行 `/cto-init`，可手动操作：
+
+#### 步骤 1：复制核心文件
+
+```bash
+# CLAUDE.md（必须）
+cp [ai-playbook-path]/templates/CLAUDE.md [your-project]/CLAUDE.md
+
+# 斜杠命令（推荐）
+mkdir -p [your-project]/.claude/commands
+cp [ai-playbook-path]/.claude/commands/cto-*.md [your-project]/.claude/commands/
+rm [your-project]/.claude/commands/cto-init.md  # init 只在 ai-playbook 中使用
+
+# Claude Code 配置（推荐）
+cp [ai-playbook-path]/.claude/settings.json [your-project]/.claude/settings.json
+
+# 跨平台 Skills（推荐）
+cp -r [ai-playbook-path]/.agents [your-project]/.agents
+```
+
+#### 步骤 2：配置 CLAUDE.md
+
+编辑目标项目的 `CLAUDE.md`，替换占位符：
+
+- 将 `[AI-PLAYBOOK-PATH]` 替换为 ai-playbook 的实际绝对路径
+- 填写底部的 `项目特定规则` 区域：
+  - **技术栈**：项目使用的语言、框架、数据库等
+  - **构建和测试**：`npm run build`、`composer install`、`flutter test` 等
+  - **项目约定**：命名规范、分支策略、提交格式等
+
+#### 步骤 3：启动 CTO
+
+在目标项目中打开 Claude Code，运行：
+
+```
+/cto-start
+```
+
+CTO 会自动执行第零轮：扫描代码 → 理解产品愿景 → 八维审核 → 生成 `docs/ai-cto/` 记忆文件 → 制定第一轮任务计划。
+
+### 29.4 文件说明
+
+安装到目标项目后的文件结构：
+
+```
+your-project/
+├── CLAUDE.md                    # CTO 系统提示词（引用 ai-playbook 手册）
+├── .claude/
+│   ├── settings.json            # Claude Code 项目配置
+│   └── commands/                # 10 个斜杠命令
+│       ├── cto-start.md
+│       ├── cto-resume.md
+│       └── ...
+├── .agents/skills/              # 跨平台 Skills
+│   ├── ux-quality-checklist/
+│   ├── i18n-enforcement/
+│   └── ...
+└── docs/ai-cto/                 # CTO 记忆（/cto-start 后自动生成）
+    ├── STATUS.md
+    ├── PRODUCT-VISION.md
+    └── ...
+```
+
+### 29.5 更新策略
+
+| 场景 | 操作 |
+|---|---|
+| ai-playbook 手册更新了 | 不需要任何操作。CLAUDE.md 通过路径引用手册，自动获取最新版本 |
+| 新增了斜杠命令 | 重新运行 `/cto-init` 或手动复制新增的命令文件 |
+| 新增了 Skill | 重新运行 `/cto-init` 或手动复制新增的 Skill 目录 |
+| templates/CLAUDE.md 结构变了 | 需要手动对比合并，或备份后重新 `/cto-init` |
+
+### 29.6 多项目管理
+
+一个 ai-playbook 仓库可以服务于多个项目。每个项目的 `CLAUDE.md` 都指向同一个手册路径，但维护独立的 `docs/ai-cto/` 记忆系统：
+
+```
+ai-playbook/           ← 中央指挥仓库（一份）
+├── playbook/handbook.md
+
+project-a/             ← 目标项目 A
+├── CLAUDE.md          → 引用 ai-playbook/playbook/handbook.md
+└── docs/ai-cto/       ← 项目 A 的独立记忆
+
+project-b/             ← 目标项目 B
+├── CLAUDE.md          → 引用 ai-playbook/playbook/handbook.md
+└── docs/ai-cto/       ← 项目 B 的独立记忆
+```
+
+### 29.7 团队协作
+
+如果团队多人使用：
+
+1. ai-playbook 仓库 push 到 GitHub/GitLab，所有人 clone 同一份
+2. 每人在本机的 ai-playbook 路径可能不同 — CLAUDE.md 中的手册路径需要各自配置
+3. 建议将 CLAUDE.md 加入 `.gitignore`（因为路径因人而异），或使用相对路径/环境变量
+4. `docs/ai-cto/` 建议纳入版本控制，团队共享 CTO 记忆
