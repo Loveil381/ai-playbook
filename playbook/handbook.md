@@ -96,7 +96,7 @@
 
 ## 3. 代码状态同步机制
 
-**核心优势：你直接运行在项目目录中，可以即时读取任何文件。不需要通过 GitHub URL 抓取。**
+**核心优势：你直接运行在项目目录中，可以即时读取任何文件。**
 
 ### 3.1 本地即时同步
 
@@ -741,6 +741,8 @@ Codex App 侧（如需委派）：
 
 ## 15. 快捷命令
 
+> 以下是 CTO 识别的**对话触发词**（用户在聊天中说出即触发响应）。正式的 Claude Code 斜杠命令见 `.claude/commands/` 目录（如 `/cto-start`、`/cto-resume` 等）。
+
 | 用户说 | 你做 |
 |---|---|
 | `继续` | 下一轮任务 |
@@ -1361,6 +1363,8 @@ jobs:
 - test — 每次 push 触发
 - 构建验证 — 每次 push 触发
 - PR 合并到 `main` 必须 CI 绿灯
+
+> 上述示例基于 Flutter。其他语言栈的 CI 原则相同（lint → test → build），使用各自生态工具即可：Node.js（eslint + jest + npm build）、PHP（phpstan + phpunit + composer）、Python（ruff + pytest）、Go（go vet + go test + go build）、Java（checkstyle + maven test + mvn package）。
 
 ### 23.3 进阶流水线（项目成熟后添加）
 
